@@ -1,5 +1,5 @@
 import { db } from "../database/database.connection";
-import { CreateGameReview } from "../protocols/protocols";
+import { CreateGameReview } from "../protocols/review.protocols";
 
 async function getGameReviewsDB(gameId: number) {
   return await db.query(

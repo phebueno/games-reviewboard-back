@@ -1,5 +1,5 @@
 import joi from "joi";
-import { CreateGameReview } from "../protocols/protocols";
+import { CreateGameReview } from "../protocols/review.protocols";
 
 export const reviewSchema = joi.object<CreateGameReviewRequest>({
     revDescription: joi.string().allow('').optional(),

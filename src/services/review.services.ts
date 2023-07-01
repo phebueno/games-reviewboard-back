@@ -1,5 +1,5 @@
 import { notFoundErr } from "../errors/errors";
-import { CreateGameReview, GameWithReviews } from "../protocols/protocols";
+import { CreateGameReview, GameWithReviews } from "../protocols/review.protocols";
 import { reviewRepository } from "../repositories/review.repository";
 
 async function getGameReviewsService(gameId:number):Promise<GameWithReviews>{

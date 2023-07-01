@@ -7,6 +7,6 @@ import { reviewSchema } from "../schemas/review.schemas";
 const reviewRouter = Router();
 
 reviewRouter.get("/reviews/:gameId", reviewController.getGameReviews);
-reviewRouter.post("/reviews/:gameId", authValidation, validateSchema(reviewSchema), reviewController.postReview);
+reviewRouter.post("/reviews/:gameId", validateSchema(reviewSchema), authValidation, reviewController.postReview);
 
 export default reviewRouter;
