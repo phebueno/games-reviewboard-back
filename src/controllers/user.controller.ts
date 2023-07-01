@@ -1,32 +1,21 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { userRepository } from "../repositories/user.repository";
+import { userService } from "../services/user.services";
+import { Request, Response } from "express";
 
-async function signUp(req, res) {
+async function signUp(req: Request, res: Response) {
   const { username, email, password } = req.body;
   try {
-    const hash = bcrypt.hashSync(password, 10);
-
-    await userRepository.insertUserDB(username, email, hash);
-
+    await userService.signUpService({ username, email, password });
     res.sendStatus(201);
   } catch (err) {
     res.status(500).send(err.message);
   }
 }
 
-async function signIn(req, res) {
+async function signIn(req: Request, res: Response) {
   try {
     const user = res.locals.session;
-    const secretKey = process.env.JWT_SECRET;
-    const token = jwt.sign(user.rows[0], secretKey, { expiresIn: "24h" });
-
-    const userData = {
-      username: user.rows[0].username,
-      img: user.rows[0].image,
-    };
-
-    res.status(201).send({ token, userData });
+    const userAuth = userService.signInService(user.rows[0]);
+    res.status(201).send(userAuth);
   } catch (err) {
     res.status(500).send(err.message);
   }
