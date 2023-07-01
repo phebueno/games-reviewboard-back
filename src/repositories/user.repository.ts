@@ -1,6 +1,6 @@
 import { db } from "../database/database.connection";
 
-async function insertUserDB(username, email, password) {
+async function insertUserDB(username: string, email: string, password: string) {
   const result = await db.query(
     `
         INSERT INTO "users" ("username", "email", "password")
@@ -11,7 +11,7 @@ async function insertUserDB(username, email, password) {
   return result;
 }
 
-export async function getUserByEmailDB(email) {
+export async function getUserByEmailDB(email:string) {
   return await db.query(
     `
         SELECT * FROM users

@@ -1,7 +1,22 @@
 import bcrypt from "bcrypt";
 import { userRepository } from "../repositories/user.repository";
+import { NextFunction, Request, Response } from "express";
 
-export async function validateSignIn(req, res, next) {
+export async function validateSignUp(req: Request, res: Response, next: NextFunction) {
+    const { email } = req.body
+    try {
+
+        const emailRepeated = await userRepository.getUserByEmailDB(email);
+
+        if (emailRepeated.rowCount !== 0) return res.status(409).send("Email já cadastrado")
+
+        next();
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+}
+
+export async function validateSignIn(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body
     try {
         const user = await userRepository.getUserByEmailDB(email);
