@@ -21,4 +21,12 @@ async function deleteReview(req: Request, res: Response) {
   await reviewService.deleteReviewService(userId, gameId);
   res.status(httpStatus.OK).send("Review deletada!");
 }
-export const reviewController = { getGameReviews, postReview, deleteReview };
+
+async function updateReview(req: Request, res: Response) {
+  const gameId = Number(req.params.gameId);
+  const userId = res.locals.userId;
+  await reviewService.updateReviewService({ userId, gameId, ...req.body });
+  res.status(httpStatus.OK).send("Review atualizada!");
+}
+
+export const reviewController = { getGameReviews, postReview, deleteReview, updateReview };

@@ -20,4 +20,12 @@ async function deleteReviewService(userId:number, gameId:number):Promise<void>{
     }
 }
 
-export const reviewService = { getGameReviewsService, postReviewService, deleteReviewService };
+async function updateReviewService(updatedReview:CreateGameReview):Promise<void>{
+    const result = await reviewRepository.updateReviewDB(updatedReview);
+    if(!result.rowCount){
+        await getGameReviewsService(updatedReview.gameId); //return not found if game doesnt exist
+        throw unauthorizedReviewerErr(updatedReview.gameId);
+    }
+}
+
+export const reviewService = { getGameReviewsService, postReviewService, deleteReviewService, updateReviewService };

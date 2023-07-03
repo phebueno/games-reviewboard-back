@@ -9,6 +9,6 @@ const reviewRouter = Router();
 reviewRouter.get("/reviews/:gameId", reviewController.getGameReviews);
 reviewRouter.post("/reviews/:gameId", validateSchema(reviewSchema), authValidation, reviewController.postReview);
 reviewRouter.delete("/reviews/:gameId", authValidation, reviewController.deleteReview);
-
+reviewRouter.patch("/reviews/:gameId", validateSchema(reviewSchema), authValidation, reviewController.updateReview);
 
 export default reviewRouter;
