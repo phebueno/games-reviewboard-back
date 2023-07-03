@@ -6,11 +6,35 @@ O tema escolhido foi uma API para espécie de site de reviews para jogos, na qua
 
 ### Endpoints
 
+#### Review Endpoints
+
 - GET /reviews/:gameId
+   - Rota que recupera todas as reviews feitas de um jogo
     
-- POST /reviews/:gameId (Rota com Auth)
+- POST /reviews/:gameId **(Auth)**
+    - Rota para adicionar sua própria review sobre um jogo 
      - Body: { "revDescripton": "Jogo bom demais esse!", "score": 100 }
-- DELETE /reviews/:gameId (Rota com Auth), 
-- PATCH /reviews/:gameId
+- DELETE /reviews/:gameId **(Auth)**
+    - Rota para deletar sua review feita para um jogo
+- PATCH /reviews/:gameId **(Auth)**
+    - Rota para trocar os valores de uma review já feita por você
      - Body: { "revDescripton": "Mudei de ideia, jogo mais ou menos...", "score": 60 }
 
+#### Game Endpoints
+
+- GET /games
+ - Rota para recuperar lista de jogos
+
+#### User Endpoints (rotas de login)
+
+- POST /sign-up
+   - Body: {
+  "username": "fernando",
+  "email": "testes@teste.com",
+  "password":"senha_secreta"
+}
+- POST /sign-in 
+   - Body: {
+  "email": "testes@teste.com",
+  "password":"senha_secreta"
+}
