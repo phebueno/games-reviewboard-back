@@ -7,6 +7,8 @@ async function getGames(req: Request, res: Response) {
   res.status(httpStatus.OK).send(games);
 }
 
-async function createGame(req: Request, res: Response) {}
+async function createGame(req: Request, res: Response) {
+  //rota apenas para administração do site! (por enquanto)
+}
 
 export const gameController = { getGames, createGame };
