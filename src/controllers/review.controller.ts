@@ -15,4 +15,10 @@ async function postReview(req: Request, res: Response) {
   res.status(httpStatus.OK).send("Review postada!");
 }
 
-export const reviewController = { getGameReviews, postReview };
+async function deleteReview(req: Request, res: Response) {
+  const gameId = Number(req.params.gameId);
+  const userId = res.locals.userId;
+  await reviewService.deleteReviewService(userId, gameId);
+  res.status(httpStatus.OK).send("Review deletada!");
+}
+export const reviewController = { getGameReviews, postReview, deleteReview };

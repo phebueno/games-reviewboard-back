@@ -13,6 +13,8 @@ export default function errorHandler(
     return res.status(httpStatus.NOT_FOUND).send(error.message);
   if (error.type === "ConflictErr")
     return res.status(httpStatus.CONFLICT).send(error.message);
+  if(error.type=== "UnauthorizedRev")
+    return res.status(httpStatus.UNAUTHORIZED).send(error.message);
 
   //Contraint Errors
   if (error.constraint === "reviewuniq") {

@@ -1,4 +1,4 @@
-import { notFoundErr } from "../errors/errors";
+import { notFoundErr, unauthorizedReviewerErr } from "../errors/errors";
 import { CreateGameReview, GameWithReviews } from "../protocols/review.protocols";
 import { reviewRepository } from "../repositories/review.repository";
 
@@ -9,7 +9,15 @@ async function getGameReviewsService(gameId:number):Promise<GameWithReviews>{
 }
 
 async function postReviewService(newReview:CreateGameReview):Promise<void>{
-    const result = await reviewRepository.postReviewDB(newReview);
+    await reviewRepository.postReviewDB(newReview);
 }
 
-export const reviewService = { getGameReviewsService, postReviewService };
+async function deleteReviewService(userId:number, gameId:number):Promise<void>{
+    const result = await reviewRepository.deleteReviewDB(userId, gameId);
+    if(!result.rowCount){
+        await getGameReviewsService(gameId); //return not found if game doesnt exist
+        throw unauthorizedReviewerErr(gameId);
+    }
+}
+
+export const reviewService = { getGameReviewsService, postReviewService, deleteReviewService };

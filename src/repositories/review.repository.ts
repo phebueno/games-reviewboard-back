@@ -32,4 +32,11 @@ async function postReviewDB(newReview: CreateGameReview) {
   );
 }
 
-export const reviewRepository = { getGameReviewsDB, postReviewDB };
+async function deleteReviewDB(userId:number, gameId:number){
+  return await db.query(
+    `DELETE FROM reviews WHERE "userId"=$1 AND "gameId"=$2`,
+    [userId, gameId]
+  );
+}
+
+export const reviewRepository = { getGameReviewsDB, postReviewDB, deleteReviewDB };
